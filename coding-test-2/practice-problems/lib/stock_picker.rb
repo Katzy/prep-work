@@ -1,10 +1,8 @@
 def stock_picker(array)
   best_combo = []
-  current_min = array[0]
-
-  temp_max = 0
-  temp_min = array[0]
   current_max = 0
+  temp_max = array[0]
+  temp_min = array[0]
   temp_max_index = 0
   temp_min_index = 0
   k = 1
@@ -54,6 +52,8 @@ p stock_picker([10, 20, 30, 25, 80, 1, 81]) == [5, 6]
 p stock_picker([20, 10, 3, 18, 16, 30, 11]) == [2, 5]
 p stock_picker([8000, 10, 100000000]) == [1, 2]
 p stock_picker([8000, 10, 0, 8001, -1, 10001]) == [4, 5]
+p stock_picker([0, 1, 2, 3, 1]) == [0, 3]
+
 
 end
 
