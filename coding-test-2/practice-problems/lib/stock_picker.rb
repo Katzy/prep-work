@@ -1,52 +1,59 @@
-
 def stock_picker(array)
   best_combo = []
-  current_max = 0
-  temp_price = array[0]
-  temp_price2 = 0
-  temp_buy_index = 0
-  temp_sell_index = 1
-  k = 0
+  current_min = array[0]
 
-  until k == array.length - 1
-    if array[k+1] > array[k]
-      until k == array.length - 1 || array[k+1] < array[k]
-        k += 1
-        temp_price2 = array[k]
-        temp_sell_index = k
-      end
-      current_max = temp_price2 - temp_price
-    elsif array[k+1] < array[k]
-      until k == array.length - 1 || array[k+1] > array[k]
-        k += 1
-        if array[k+1] > array[k]
-          if array[k] > temp_price
-            until k == array.length - 1 || array[k+1] < array[k]
-              k += 1
-              current_max = array[k] - temp_price
-              if array[-1] - temp_price > current_max
-                temp_price2 = array[-1]
-                temp_sell_index = array.length - 1
-              else
-                temp_price2 = array[k]
-                temp_sell_index = k
-              end
-            end
-          else
-            temp_price = array[k]
-            temp_buy_index = k
-            until k == array.length - 1 || array[k+1] < array[k]
-              k += 1
-              temp_price2 = array[k]
-              temp_sell_index = k
-            end
+  temp_max = 0
+  temp_min = array[0]
+  current_max = 0
+  temp_max_index = 0
+  temp_min_index = 0
+  k = 1
+
+  if array.length == 0
+    best_combo
+  else
+    until k == array.length
+      if array[k] > array[k-1]
+        temp_max = array[k]
+        temp_max_index = k
+        if temp_max_index > temp_min_index && temp_max - temp_min > current_max
+          current_max = temp_max - temp_min
+        end
+      elsif array[k] < array[k-1]
+        if temp_max - temp_min > current_max
+          temp_max = array[k]
+          temp_max_index = k
+        end
+        if array[k] < temp_min
+          temp_min = array[k]
+          temp_min_index = k
+
+          if temp_max_index > temp_min_index && temp_max - temp_min > current_max
+            current_max = temp_max - temp_min
           end
         end
-        current_max = temp_price2 - temp_price
-        best_combo = temp_buy_index, temp_sell_index
       end
+      if temp_min_index > temp_max_index
+        best_combo = []
+      else
+        best_combo = [temp_min_index, temp_max_index]
+      end
+      k += 1
     end
   end
- p  current_max
- p best_combo
+
+  best_combo
 end
+
+if __FILE__ == $0
+
+p stock_picker([20, 10, 3, 18, 16, 30, 11]) == [2, 5]
+p stock_picker([]) == []
+p stock_picker([20, 10, 5, 8, 4, 10]) == [4, 5]
+p stock_picker([10, 20, 30, 25, 80, 1, 81]) == [5, 6]
+p stock_picker([20, 10, 3, 18, 16, 30, 11]) == [2, 5]
+p stock_picker([8000, 10, 100000000]) == [1, 2]
+p stock_picker([8000, 10, 0, 8001, -1, 10001]) == [4, 5]
+
+end
+
