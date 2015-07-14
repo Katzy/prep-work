@@ -17,12 +17,12 @@ def stock_picker(array)
         if temp_max_index > temp_min_index && temp_max - temp_min > current_max
           current_max = temp_max - temp_min
         end
-      elsif array[k] < array[k-1]
+      elsif array[k] <= array[k-1]
         if temp_max - temp_min > current_max
           temp_max = array[k]
           temp_max_index = k
         end
-        if array[k] < temp_min
+        if array[k] <= temp_min
           temp_min = array[k]
           temp_min_index = k
 
@@ -49,10 +49,11 @@ p stock_picker([20, 10, 3, 18, 16, 30, 11]) == [2, 5]
 p stock_picker([]) == []
 p stock_picker([20, 10, 5, 8, 4, 10]) == [4, 5]
 p stock_picker([10, 20, 30, 25, 80, 1, 81]) == [5, 6]
-p stock_picker([20, 10, 3, 18, 16, 30, 11]) == [2, 5]
+p stock_picker([3, 10, 3, 18, 16, 30, 11]) == [2, 5]
 p stock_picker([8000, 10, 100000000]) == [1, 2]
 p stock_picker([8000, 10, 0, 8001, -1, 10001]) == [4, 5]
 p stock_picker([0, 1, 2, 3, 1]) == [0, 3]
+p stock_picker([1, 1, 1, 5, 1, 1, 1, 1, 10]) == [7, 8]
 
 
 end
